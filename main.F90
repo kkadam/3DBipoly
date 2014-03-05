@@ -24,7 +24,7 @@ program main
 !*
 !*   Local variables
       real :: w, phi_a, phi_b, h_a, h_b, psi_a,psi_b,phi_c
-      real :: rho_c, c_0, rho_norm, h_max
+      real :: rho_c, rho_norm, h_max
       integer :: i,j,k,count
       real :: cpu1,cpu2, p_max,cput
       real :: phi_i, psi_i, rho_2i, gamma1, gamma2, h_2i
@@ -97,14 +97,14 @@ program main
 !       call print1d(pot,"y",1,"poty.1") 
 !       call print2d(pot,"pot.2") 
 !Find the constants c1, c2 and omega_sq      
-        phi_a=pot(ax,ay,1) 
-        phi_b=pot(bx,by,1)
-        psi_a=psi(ax,ay,1)
-        psi_b=psi(bx,by,1)
+        phi_a=pot(ax,ay,2) 
+        phi_b=pot(bx,by,2)
+        psi_a=psi(ax,ay,2)
+        psi_b=psi(bx,by,2)
         
-        phi_i=pot(ix,2,1)
-        psi_i=psi(ix,2,1)
-        rho_2i=rho(ix,2,1)
+        phi_i=pot(ix,2,2)
+        psi_i=psi(ix,2,2)
+        rho_2i=rho(ix,2,2)
         
         rho_1i=rho_2i*mu1/mu2
         
@@ -193,19 +193,20 @@ program main
         print*, "Iteration number = ",count
         print*,"c1 = ",c1, "c2 = ",c2, "omega_sq = ", omega_sq
         print*,"d_c1 = ",d_c1, "dc_2 = ", d_c2, "d_omega_sq = ", d_omega_sq  
-     call print2d(rho,"rho.2")        
+!     call print2d(rho,"rho.2")        
      enddo
      print*,rho_2i 
- 
+     rho_2i=rho(ix,2,2) 
+     
      call cpu_time(cpu2)
      cput=(cpu2-cpu1)/60.0
      
     call print1d(rho,"x",1,"rhofx.1")  
     call print1d(rho,"y",1,"rhofy.1") 
     call print2d(rho,"rhof.2") 
-!     call getinfo(omega_sq,c_0,h_max,rho_2i,count,cput)
-!     call print2default(rho)
-!     call print1default(rho,"x",2)
+     call getinfo(omega_sq,h_max,rho_2i,count,cput)
+     call print2default(rho)
+     call print1default(rho,"x",2)
      print*,"==========================================================================="
       
       
