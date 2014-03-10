@@ -46,7 +46,7 @@ program main
 !      call print1d(rho,"x",1,"rhoix.1")  
 !      call print1d(rho,"y",1,"rhoiy.1")
 !      call print2d(rho,"rhoi.2") 
-	
+!      call print1d(rho,"y",2,"rho")	
 !Find rotational potential	
       do i=1,numr
         do j=1,numz
@@ -56,7 +56,7 @@ program main
           enddo
         enddo
       enddo   
-
+!      call print1d(psi,"y",2,"psi")
    
 !Normalization      
       Re=(ax-1.5)/(numr-1.5)
@@ -70,32 +70,13 @@ program main
       
       do while ((d_c1 .gt. 1d-2).and.(d_c2.gt.1d-2).and.(d_omega_sq.gt.1d-2))
         count=count+1
-        
-        
-!!!!!!!!!!!!!! wtf       
- !     do i=1, numr
- !       do j= 1, numphi
- !         rho(i,1,j)=rho(i,2,j)
- !       enddo
- !     enddo
-       
-	
-	
-	
-!!!!!!!!!!!!!!        
-!      call print1d(rho,"x",1,"rhox.1")  
-!      call print1d(rho,"y",1,"rhoy.1")
-!      call print2d(rho,"rho.2")         
-        
+              
 
         !Poisson solve for density      
         call poisson_solver
         pot=pot/Re**2
+!        call print1d(pot,"y",2,"pot")
 
-       
-!       call print1d(pot,"x",1,"potx.1") 
-!       call print1d(pot,"y",1,"poty.1") 
-!       call print2d(pot,"pot.2") 
 !Find the constants c1, c2 and omega_sq      
         phi_a=pot(ax,ay,2) 
         phi_b=pot(bx,by,2)
@@ -108,13 +89,12 @@ program main
         
         rho_1i=rho_2i*mu1/mu2
         
-        print*, "phi_a", phi_a
-        print*, "phi_b", phi_b
-        print*, "phi_i",phi_i
-        print*,"psi_a", psi_a
-        print*, "psi_b", psi_b
-        
-        print*, "rho_2i", rho_2i
+!        print*, "phi_a", phi_a
+!        print*, "phi_b", phi_b
+!        print*, "phi_i",phi_i
+!        print*,"psi_a", psi_a
+!        print*, "psi_b", psi_b        
+!        print*, "rho_2i", rho_2i
         
         
 !Edited for torous        c2=phi_b
@@ -201,12 +181,14 @@ program main
      call cpu_time(cpu2)
      cput=(cpu2-cpu1)/60.0
      
-    call print1d(rho,"x",1,"rhofx.1")  
-    call print1d(rho,"y",1,"rhofy.1") 
-    call print2d(rho,"rhof.2") 
+!    call print1d(rho,"x",1,"rhofx.1")  
+!   call print1d(rho,"y",1,"rhofy.1") 
+!    call print2d(rho,"rhof.2") 
      call getinfo(omega_sq,h_max,rho_2i,count,cput)
      call print2default(rho)
      call print1default(rho,"x",2)
+!     call print1d(enth,"y",2,"enth")
+!     call print1d(pot,"y",2,"pot")
      print*,"==========================================================================="
       
       

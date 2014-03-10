@@ -92,8 +92,8 @@
 
       !  set the coordinate differentials, numr, numz and numphi come
       !  from the runhydro.h header file
-      !dr = 1.0 / (numr - 1.0)
-      dr = 1.0 / 127.0
+      dr = 1.0 / (numr - 1.0)
+      !dr = 1.0 / 127.0
       dz = dr
       dphi = 2.0 * pi * numphiinv
       drinv = 1.0 / dr
