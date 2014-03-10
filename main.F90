@@ -43,10 +43,7 @@ program main
       
 !Guess the initial density
       call guessrho
-!      call print1d(rho,"x",1,"rhoix.1")  
-!      call print1d(rho,"y",1,"rhoiy.1")
-!      call print2d(rho,"rhoi.2") 
-!      call print1d(rho,"y",2,"rho")	
+
 !Find rotational potential	
       do i=1,numr
         do j=1,numz
@@ -71,11 +68,9 @@ program main
       do while ((d_c1 .gt. 1d-2).and.(d_c2.gt.1d-2).and.(d_omega_sq.gt.1d-2))
         count=count+1
               
-
         !Poisson solve for density      
         call poisson_solver
         pot=pot/Re**2
-!        call print1d(pot,"y",2,"pot")
 
 !Find the constants c1, c2 and omega_sq      
         phi_a=pot(ax,ay,2) 
@@ -89,15 +84,7 @@ program main
         
         rho_1i=rho_2i*mu1/mu2
         
-!        print*, "phi_a", phi_a
-!        print*, "phi_b", phi_b
-!        print*, "phi_i",phi_i
-!        print*,"psi_a", psi_a
-!        print*, "psi_b", psi_b        
-!        print*, "rho_2i", rho_2i
-        
-        
-!Edited for torous        c2=phi_b
+!Edited for torus        c2=phi_b
 	
 	c2=(phi_a*psi_b-phi_b*psi_a)/(psi_b-psi_a)
 	
@@ -136,8 +123,7 @@ program main
         
         !Find the new normalized density      
         !enth=enth/h_max
-        
-      
+              
         do i=1,numr
           do j=1,numz
             do k=1,numphi
@@ -181,14 +167,9 @@ program main
      call cpu_time(cpu2)
      cput=(cpu2-cpu1)/60.0
      
-!    call print1d(rho,"x",1,"rhofx.1")  
-!   call print1d(rho,"y",1,"rhofy.1") 
-!    call print2d(rho,"rhof.2") 
      call getinfo(omega_sq,h_max,rho_2i,count,cput)
      call print2default(rho)
      call print1default(rho,"x",2)
-!     call print1d(enth,"y",2,"enth")
-!     call print1d(pot,"y",2,"pot")
      print*,"==========================================================================="
       
       
